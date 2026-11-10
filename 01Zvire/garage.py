@@ -70,7 +70,49 @@ class Garage:
         self.cars.append(car)
         return f"Do garáže {self.name} bylo přidáno auto: {car.brand} {car.model}"
 
+    def showCars(self):
+        if len(self.cars) == 0:
+            print(f"V garáži {self.name} není žádné auto!")
+        else:
+            print(f"Auta v garáži: {self.name}")
+            for car in self.cars:
+                print("-->", car)
+
+    def oldestCar(self):
+        if len(self.cars) == 0:
+            return None        
+        theOldest = min(self.cars, key= lambda a: a.year)
+        return theOldest
+
+    def avgFuel(self):
+        if len(self.cars) == 0:
+            return 0
+        return sum(car.fuel for car in self.cars)/len(self.cars)
+
 garage = Garage("Orange county Choppers")
+garage.showCars()
+print(40*"=")
 print(garage.addCar(car1))
 print(garage.addCar(car2))
 print(garage.addCar(car3))
+print(40*"=")
+garage.showCars()
+
+print("---Nejstarší auto---")
+oldest = garage.oldestCar()
+if oldest:
+    print(f"Nejstarší auto v garáži je {oldest.brand} {oldest.model} ({oldest.year})")
+
+print("---Průměrná hodnota paliva---")
+print(f"{garage.avgFuel():.1f}%")
+
+print("---Jízda specifického auta v garáži---")
+print(garage.cars[2].move())
+
+print("---Jízda všech auto v garáži---")
+for brambora in garage.cars:
+    print(brambora.move())
+
+print("---Hromadná kontrola STK---")
+for jablko in garage.cars:
+    print(jablko.STK())
